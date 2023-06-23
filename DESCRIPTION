@@ -1,0 +1,20 @@
+Package: readthis
+Title: Read results from misc genomic tools
+Version: 0.1.0
+Authors@R: 
+    person("Paweł", "Kuś", , "kpawel2210@gmail.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    dplyr,
+    purrr,
+    readr,
+    stringr,
+    tibble,
+    tidyr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

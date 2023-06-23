@@ -1,0 +1,10 @@
+sample_id	lambda	mutation_assignments	subclonal_structure	best_lambda
+SampleA	0.01	CliP/SampleA/results/mutation_assignments_lam0.01.txt	CliP/SampleA/results/subclonal_structure_lam0.01.txt	FALSE
+SampleA	0.03	CliP/SampleA/results/mutation_assignments_lam0.03.txt	CliP/SampleA/results/subclonal_structure_lam0.03.txt	TRUE
+SampleA	0.1	CliP/SampleA/results/mutation_assignments_lam0.1.txt	CliP/SampleA/results/subclonal_structure_lam0.1.txt	FALSE
+SampleA	0.2	CliP/SampleA/results/mutation_assignments_lam0.2.txt	CliP/SampleA/results/subclonal_structure_lam0.2.txt	FALSE
+SampleB	0.01	CliP/SampleB/results/mutation_assignments_lam0.01.txt	CliP/SampleB/results/subclonal_structure_lam0.01.txt	FALSE
+SampleB	0.03	CliP/SampleB/results/mutation_assignments_lam0.03.txt	CliP/SampleB/results/subclonal_structure_lam0.03.txt	FALSE
+SampleB	0.1	CliP/SampleB/results/mutation_assignments_lam0.1.txt	CliP/SampleB/results/subclonal_structure_lam0.1.txt	FALSE
+SampleB	0.125	CliP/SampleB/results/mutation_assignments_lam0.125.txt	CliP/SampleB/results/subclonal_structure_lam0.125.txt	TRUE
+SampleB	0.2	CliP/SampleB/results/mutation_assignments_lam0.2.txt	CliP/SampleB/results/subclonal_structure_lam0.2.txt	FALSE
