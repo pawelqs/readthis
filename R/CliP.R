@@ -1,5 +1,3 @@
-
-
 ## ------------------------------- Export --------------------------------------
 
 #' Read CliP results
@@ -46,7 +44,7 @@ recognize_clip_sample_dirs <- function(dir) {
     bind_rows()
 
   sample_names_mask <- path_divided |>
-    map_lgl(~length(unique(.x)) > 1)
+    map_lgl(~ length(unique(.x)) > 1)
   sample_ids <- unlist(path_divided[sample_names_mask])
   names(sample_ids) <- NULL
 
