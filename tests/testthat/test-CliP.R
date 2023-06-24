@@ -1,4 +1,18 @@
 
+# # Prepare clip files
+# clip_files <- list.files(test_path("CliP"), recursive = TRUE, full.names = TRUE)
+# mut_assignments <- grep("mutation_assignments", clip_files, value = TRUE)
+# map(
+#   mut_assignments,
+#   function(file) {
+#     file |>
+#       read_tsv() |>
+#       mutate(position = row_number()) |>
+#       write_tsv(file)
+#   }
+# )
+
+
 
 test_that("recognize_clip_sample_dirs() recognizes samples in CliP results", {
   dir <- test_path("CliP")
