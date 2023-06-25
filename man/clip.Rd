@@ -3,10 +3,13 @@
 \name{clip}
 \alias{clip}
 \alias{read_clip_all}
+\alias{read_clip_all_wide}
 \alias{read_clip_best_lambda}
 \title{Read CliP results}
 \usage{
 read_clip_all(dir)
+
+read_clip_all_wide(dir)
 
 read_clip_best_lambda(dir)
 }
@@ -22,6 +25,13 @@ at MD Anderson Cancer Center in Houston.
 \itemize{
 \item \code{read_clip_all()}: Read CliP results for all lambdas
 
+\item \code{read_clip_all_wide()}: Read CliP results for all lambdas, in the wider format
+
 \item \code{read_clip_best_lambda()}: Read CliP results for best lambda only
 
 }}
+\examples{
+dir <- system.file("CliP", package = "readthis")
+read_clip_best_lambda(dir)
+
+}

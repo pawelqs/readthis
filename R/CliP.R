@@ -8,6 +8,10 @@
 #'
 #' @param dir directory in which to seek for the CliP results
 #'
+#' @examples
+#' dir <- system.file("CliP", package = "readthis")
+#' read_clip_best_lambda(dir)
+#'
 #' @name clip
 NULL
 
@@ -98,7 +102,7 @@ read_clip_files <- function(files) {
     rowwise("sample_id", "lambda", "best_lambda") |>
     reframe(read_tsv(mutation_assignments, show_col_types = FALSE)) |>
     rename(chrom = "chromosome_index", pos = "position") |>
-    mutate(chrom = str_c("chr", chrom)) |>
+    mutate(chrom = str_c("chr", .data$chrom)) |>
     select("sample_id", "chrom", "pos", "cluster_index", "lambda", "best_lambda")
 
   subclonal_structure <- files |>
