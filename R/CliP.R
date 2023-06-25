@@ -56,7 +56,6 @@ recognize_clip_sample_dirs <- function(dir) {
 
 
 
-
 list_clip_files <- function(sample_dirs, best_only = TRUE) {
   files <- sample_dirs |>
     rowwise("sample_id") |>
@@ -93,14 +92,20 @@ list_clip_files <- function(sample_dirs, best_only = TRUE) {
 }
 
 
+
 read_clip_files <- function(files) {
   mutation_assignments <- files |>
     rowwise("sample_id", "lambda", "best_lambda") |>
-    reframe(read_tsv(mutation_assignments, show_col_types = FALSE))
+    reframe(read_tsv(mutation_assignments, show_col_types = FALSE)) |>
+    rename(chrom = "chromosome_index", pos = "position") |>
+    mutate(chrom = str_c("chr", chrom)) |>
+    select("sample_id", "chrom", "pos", "cluster_index", "lambda", "best_lambda")
 
   subclonal_structure <- files |>
     rowwise("sample_id", "lambda", "best_lambda") |>
-    reframe(read_tsv(subclonal_structure, show_col_types = FALSE))
+    reframe(read_tsv(subclonal_structure, show_col_types = FALSE)) |>
+    select("sample_id", "cluster_index", "num_SNV", "cellular_prevalence", "lambda", "best_lambda")
 
   lst(mutation_assignments, subclonal_structure)
 }
+
