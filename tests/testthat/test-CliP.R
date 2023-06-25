@@ -45,3 +45,34 @@ test_that("list_clip_files() finds best lambda results", {
 })
 
 
+test_that("read_clip_best_lambda() reads best lambda results correctly", {
+  dir <- test_path("CliP")
+  res <- read_clip_all(dir)
+
+  expect_s3_class(res$mutation_assignments, "tbl")
+  expect_named(
+    res$mutation_assignments,
+    c("sample_id", "chrom", "pos", "cluster_index", "lambda", "best_lambda")
+  )
+  expect_equal(nrow(res$mutation_assignments), 8497 * 4)
+
+  expect_s3_class(res$subclonal_structure, "tbl")
+  expect_named(
+    res$subclonal_structure,
+    c("sample_id", "cluster_index", "num_SNV", "cellular_prevalence", "lambda", "best_lambda")
+  )
+  expect_equal(nrow(res$subclonal_structure), 35)
+})
+
+
+test_that("read_clip_all_wide() pivots mutation assignments correctly", {
+  dir <- test_path("CliP")
+  res <- read_clip_all_wide(dir)
+
+  expect_s3_class(res$mutation_assignments, "tbl")
+  expect_named(
+    res$mutation_assignments,
+    c("sample_id", "chrom", "pos", "0.01", "0.03", "0.1", "0.2")
+  )
+  expect_equal(nrow(res$mutation_assignments), 8497)
+})

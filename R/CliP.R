@@ -16,6 +16,7 @@
 NULL
 
 
+
 #' @describeIn clip Read CliP results for all lambdas
 #' @export
 read_clip_all <- function(dir) {
@@ -23,6 +24,23 @@ read_clip_all <- function(dir) {
   files <- list_clip_files(sample_dirs, best_only = FALSE)
   read_clip_files(files)
 }
+
+
+
+#' @describeIn clip Read CliP results for all lambdas, in the wider format
+#' @export
+read_clip_all_wide <- function(dir) {
+  sample_dirs <- recognize_clip_sample_dirs(dir)
+  files <- list_clip_files(sample_dirs, best_only = FALSE)
+
+  res <- read_clip_files(files)
+  res$mutation_assignments <- res$mutation_assignments |>
+    select(-"best_lambda") |>
+    pivot_wider(names_from = "lambda", values_from = "cluster_index")
+
+  res
+}
+
 
 
 #' @describeIn clip Read CliP results for best lambda only
