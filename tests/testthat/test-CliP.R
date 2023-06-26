@@ -13,6 +13,8 @@
 # )
 
 
+## --------------------- recognize_clip_sample_dirs() --------------------------
+
 
 test_that("recognize_clip_sample_dirs() recognizes samples in CliP results", {
   dir <- test_path("CliP")
@@ -23,6 +25,19 @@ test_that("recognize_clip_sample_dirs() recognizes samples in CliP results", {
   )
   expect_identical(res, expected)
 })
+
+
+test_that("recognize_clip_sample_dirs() works with one sample only", {
+  dir <- test_path("CliP/SampleA")
+  res <- recognize_clip_sample_dirs(dir)
+  expected <- tibble(
+    sample_dir = file.path(test_path("CliP"), "SampleA/results")
+  )
+  expect_identical(res, expected)
+})
+
+
+## ---------------------------- list_clip_files() ------------------------------
 
 
 test_that("list_clip_files() finds all lambda results", {
@@ -43,6 +58,19 @@ test_that("list_clip_files() finds best lambda results", {
     filter(best_lambda)
   expect_identical(res, expected)
 })
+
+
+test_that("list_clip_files() works with one sample only", {
+  dir <- test_path("CliP/SampleA")
+  sample_dirs <- recognize_clip_sample_dirs(dir)
+  res <- list_clip_files(sample_dirs, best_only = FALSE)
+  expected <- read_tsv(test_path("clip_files.tsv"), col_types = "ccccl") |>
+    filter(sample_id == "SampleA") |>
+    select(-sample_id)
+  expect_identical(res, expected)
+})
+
+## ------------------------------ read_clip_*() --------------------------------
 
 
 test_that("read_clip_best_lambda() reads best lambda results correctly", {
@@ -75,4 +103,17 @@ test_that("read_clip_all_wide() pivots mutation assignments correctly", {
     c("sample_id", "chrom", "pos", "0.01", "0.03", "0.1", "0.2")
   )
   expect_equal(nrow(res$mutation_assignments), 8497)
+})
+
+
+test_that("read_clip_all() works with one sample correctly", {
+  dir <- test_path("CliP/SampleA")
+  res <- read_clip_all(dir)
+
+  expect_s3_class(res$mutation_assignments, "tbl")
+  expect_named(
+    res$mutation_assignments,
+    c("chrom", "pos", "cluster_index", "lambda", "best_lambda")
+  )
+  expect_equal(nrow(res$mutation_assignments), 17144)
 })

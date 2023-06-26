@@ -71,7 +71,7 @@ recognize_clip_sample_dirs <- function(dir) {
   names(sample_ids) <- NULL
 
   tibble(
-    sample_id = sample_ids,
+    sample_id = sample_ids, # if there is one sample only, this column does not exist
     sample_dir = str_replace(best_lambda_dirs, "/Best_lambda", "")
   )
 }
@@ -79,6 +79,11 @@ recognize_clip_sample_dirs <- function(dir) {
 
 
 list_clip_files <- function(sample_dirs, best_only = TRUE) {
+  single_sample <- !"sample_id" %in% names(sample_dirs)
+  if (single_sample) {
+    sample_dirs$sample_id <- "fake_id"
+  }
+
   files <- sample_dirs |>
     rowwise("sample_id") |>
     reframe(
@@ -102,9 +107,13 @@ list_clip_files <- function(sample_dirs, best_only = TRUE) {
   files <- files |>
     filter(!.data$best_lambda) |>
     select(-"best_lambda") |>
-    left_join(best_lambdas, by = join_by("sample_id", "lambda")) |>
+    left_join(best_lambdas, by = c("sample_id", "lambda")) |>
     replace_na(list(best_lambda = FALSE)) |>
     arrange("sample_id", "lambda")
+
+  if (single_sample) {
+    files$sample_id <- NULL
+  }
 
   if (best_only) {
     filter(files, .data$best_lambda)
@@ -117,16 +126,16 @@ list_clip_files <- function(sample_dirs, best_only = TRUE) {
 
 read_clip_files <- function(files) {
   mutation_assignments <- files |>
-    rowwise("sample_id", "lambda", "best_lambda") |>
+    rowwise(any_of("sample_id"), "lambda", "best_lambda") |>
     reframe(read_tsv(mutation_assignments, show_col_types = FALSE)) |>
     rename(chrom = "chromosome_index", pos = "position") |>
     mutate(chrom = str_c("chr", .data$chrom)) |>
-    select("sample_id", "chrom", "pos", "cluster_index", "lambda", "best_lambda")
+    select(any_of("sample_id"), "chrom", "pos", "cluster_index", "lambda", "best_lambda")
 
   subclonal_structure <- files |>
-    rowwise("sample_id", "lambda", "best_lambda") |>
+    rowwise(any_of("sample_id"), "lambda", "best_lambda") |>
     reframe(read_tsv(subclonal_structure, show_col_types = FALSE)) |>
-    select("sample_id", "cluster_index", "num_SNV", "cellular_prevalence", "lambda", "best_lambda")
+    select(any_of("sample_id"), "cluster_index", "num_SNV", "cellular_prevalence", "lambda", "best_lambda")
 
   lst(mutation_assignments, subclonal_structure)
 }
