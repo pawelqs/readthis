@@ -129,7 +129,7 @@ read_clip_files <- function(files) {
     rowwise(any_of("sample_id"), "lambda", "best_lambda") |>
     reframe(read_tsv(mutation_assignments, show_col_types = FALSE)) |>
     rename(chrom = "chromosome_index", pos = "position") |>
-    mutate(chrom = str_c("chr", .data$chrom)) |>
+    use_UCSC_chrom_names() |>
     select(any_of("sample_id"), "chrom", "pos", "cluster_index", "lambda", "best_lambda")
 
   subclonal_structure <- files |>

@@ -3,6 +3,7 @@
 export(read_clip_all)
 export(read_clip_all_wide)
 export(read_clip_best_lambda)
+export(read_strelka_somatic_snvs)
 import(dplyr)
 import(purrr)
 import(readr)

@@ -1,20 +1,23 @@
 Package: readthis
 Title: Read results from misc genomic tools
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Paweł", "Kuś", , "kpawel2210@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This package is for reading output files of: variant callers,
+  cancer evolution analysis algorithms ect.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
+    cli,
     dplyr,
     purrr,
     readr,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    vcfR
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
