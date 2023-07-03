@@ -2,6 +2,9 @@
 # readthis
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/pawelqs/readthis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pawelqs/readthis/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/pawelqs/readthis/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/pawelqs/readthis/actions/workflows/test-coverage.yaml)
 <!-- badges: end -->
 
 The goal of readthis is to provide functions for cenvenient reading outputs from
