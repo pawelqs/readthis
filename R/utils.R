@@ -45,3 +45,38 @@ use_NCBI_chrom_names <- function(tbl) {
       )
     )
 }
+
+
+# analyze_path <- function(path) {
+#   if () {
+#     "MANY_FILES"
+#   }
+# }
+
+
+is_single_dir <- function(path) {
+  if (length(path) > 1) {
+    FALSE
+  } else {
+    file.exists(path) & dir.exists(path)
+  }
+}
+
+
+is_single_file <- function(path) {
+  if (length(path) > 1) {
+    FALSE
+  } else {
+    file.exists(path) & (!dir.exists(path))
+  }
+}
+
+
+is_list_of_files <- function(path) {
+  if (length(path) == 1) {
+    FALSE
+  } else {
+    all(map_lgl(path, is_single_file))
+  }
+  # length(path) > 1 && all(is_file(path))
+}
