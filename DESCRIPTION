@@ -1,6 +1,6 @@
 Package: readthis
 Title: Read results from misc genomic tools
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     person("Paweł", "Kuś", , "kpawel2210@gmail.com", role = c("aut", "cre"))
 Description: This package is for reading output files of: variant callers,
