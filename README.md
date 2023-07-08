@@ -26,7 +26,8 @@ devtools::install_github("pawelqs/readthis")
 **Variant Callers:**
 
 - [Strelka2](https://github.com/Illumina/strelka) (somatic SNVs only)
-- [FACETS](https://github.com/mskcc/facets) CNV caller
+- [Mutect2](https://github.com/Illumina/strelka) SNVs
+- [FACETS](https://github.com/mskcc/facets) CNVs
 
 **Other tools:**
 
