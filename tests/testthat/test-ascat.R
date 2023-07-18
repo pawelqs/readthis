@@ -22,7 +22,7 @@ test_that("read_ascat_files() works with cnvs only", {
   res <- read_ascat_files(path)
   expect_s3_class(res, "cevo_ASCAT")
   expect_equal(dim(res$cnvs), c(10, 8))
-  expect_equal(unique(res$cnvs$sample_id), c("ASCAT/S1.csv"))
+  expect_equal(unique(res$cnvs$sample_id), test_path("ASCAT", "S1.csv"))
 })
 
 
@@ -34,8 +34,8 @@ test_that("read_ascat_files() works with cnvs and sample statistics", {
   expect_s3_class(res, "cevo_ASCAT")
   expect_equal(dim(res$cnvs), c(10, 8))
   expect_equal(dim(res$sample_statistics), c(1, 8))
-  expect_equal(unique(res$cnvs$sample_id), c("ASCAT/S1.csv"))
-  expect_equal(unique(res$sample_statistics$sample_id), c("ASCAT/S1.csv"))
+  expect_equal(unique(res$cnvs$sample_id), test_path("ASCAT", "S1.csv"))
+  expect_equal(unique(res$sample_statistics$sample_id), test_path("ASCAT", "S1.csv"))
 })
 
 

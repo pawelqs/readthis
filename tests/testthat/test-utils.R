@@ -1,11 +1,11 @@
 test_that("get_files() works", {
-  tbl <- test_path("ASCAT")
+  path <- test_path("ASCAT")
 
-  csv_files <- get_files(tbl, ".csv", "(?<=\\/)[:alnum:]*(?=\\.)")
+  csv_files <- get_files(path, ".csv", "(?<=\\/)[:alnum:]*(?=\\.)")
   expected_csv_files <- c(S1 = "ASCAT/S1.csv", S2 = "ASCAT/S2.csv")
   expect_equal(csv_files, expected_csv_files)
 
-  stat_files <- get_files(tbl, "samplestatistics", "(?<=\\/)[:alnum:]*(?=\\.)")
+  stat_files <- get_files(path, "samplestatistics", "(?<=\\/)[:alnum:]*(?=\\.)")
   expected_stat_files <- c(S1 = "ASCAT/S1.samplestatistics.txt", S2 = "ASCAT/S2.samplestatistics.txt")
   expect_equal(stat_files, expected_stat_files)
 })
