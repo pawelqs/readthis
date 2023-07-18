@@ -9,6 +9,7 @@ read_mutect_snvs(
   path,
   sample_ids = "drop_first",
   PASS_only = TRUE,
+  patient_id_pattern = "(?<=\\\\/)[:alnum:]*(?=\\\\.)",
   chrom_convention = "UCSC",
   extract_VEP_fields = FALSE,
   verbose = TRUE
@@ -32,6 +33,9 @@ samples. Default: "drop_first"
 }}
 
 \item{PASS_only}{Keep FILTER == PASS variants only?}
+
+\item{patient_id_pattern}{If path is a dir only: pattern for str_extract()
+that should be used to extract the patient_id from the filenames}
 
 \item{chrom_convention}{UCSC/NCBI/keep}
 
