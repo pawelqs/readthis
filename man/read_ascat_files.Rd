@@ -41,3 +41,29 @@ when path is a directory}
 Reads the CNV variant calls and sample statistics from
 \href{https://github.com/VanLoo-lab/ascat}{ASCAT} CNV caller
 }
+\examples{
+library(readthis)
+
+ASCAT_csv <- system.file("extdata", "ASCAT", "S1.csv", package = "readthis")
+read_ascat_files(ASCAT_csv)
+
+ASCAT_stats <- system.file("extdata", "ASCAT", "S1.samplestatistics.txt", package = "readthis")
+read_ascat_files(ASCAT_csv, ASCAT_stats, sample_id = "S1")
+
+ASCAT_dir <- system.file("extdata", "ASCAT", package = "readthis")
+read_ascat_files(ASCAT_dir)
+
+ASCAT_tbl <- tibble::tibble(
+  sample_id = c("S1", "S2"),
+  csv = c(
+    system.file("extdata", "ASCAT", "S1.csv", package = "readthis"),
+    system.file("extdata", "ASCAT", "S2.csv", package = "readthis")
+   ),
+  sample_statistics = c(
+    system.file("extdata", "ASCAT", "S1.samplestatistics.txt", package = "readthis"),
+    system.file("extdata", "ASCAT", "S2.samplestatistics.txt", package = "readthis")
+  )
+)
+read_ascat_files(ASCAT_tbl)
+
+}
