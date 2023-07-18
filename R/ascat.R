@@ -38,53 +38,69 @@ read_ascat_files <- function(path,
                              sample_id_pattern = "(?<=\\/)[:alnum:]*(?=\\.)",
                              chrom_convention = "UCSC") {
   if (is_single_file(path)) {
-    cnvs <- read_ascat_cnvs(path) |>
-      mutate(sample_id = sample_id, .before = "chrom")
-    if (!is.null(sample_statistics) && is_single_file(sample_statistics)) {
-      stats <- read_ascat_samplestatistics(sample_statistics) |>
-        mutate(sample_id = sample_id, .before = "normal_contamination")
-    } else {
-      stats <- empty_ascat_samplestatistics()
-    }
+    ascat <- read_ascat_files_single(path, sample_statistics, sample_id)
   } else if (is.data.frame(path)) {
-    cnvs <- path |>
-      select("sample_id", "csv") |>
-      deframe() |>
-      map(read_ascat_cnvs) |>
-      bind_rows(.id = "sample_id")
-    if (is.null(path[["sample_statistics"]])) {
-      stats <- empty_ascat_samplestatistics()
-    } else {
-      stats <- path |>
-        select("sample_id", "sample_statistics") |>
-        deframe() |>
-        keep(\(x) !is.na(x)) |>
-        map(read_ascat_samplestatistics) |>
-        bind_rows(.id = "sample_id")
-    }
+    ascat <- read_ascat_files_from_dataframe(path)
   } else if (is_single_dir(path)) {
-    csv_files <- get_files(path, ".csv", sample_id_pattern)
-    cnvs <- csv_files |>
-      map(read_ascat_cnvs) |>
-      bind_rows(.id = "sample_id")
-
-    stat_files <- get_files(path, "samplestatistics", sample_id_pattern)
-    stats <- stat_files |>
-      map(read_ascat_samplestatistics) |>
-      bind_rows(.id = "sample_id")
+    ascat <- read_ascat_files_from_dir(path, sample_id_pattern)
   }
 
-  ascat <- list(
-    cnvs = use_chrom_naming_convention(cnvs, chrom_convention),
-    sample_statistics = stats
-  )
+  ascat$cnvs <- use_chrom_naming_convention(ascat$cnvs, chrom_convention)
   structure(ascat, class = c("cevo_ASCAT"))
 }
 
 
+## ----------------------- Higher level functions -----------------------------
 
-## ----------------------------- Functions ------------------------------------
+read_ascat_files_single <- function(path, sample_statistics, sample_id) {
+  cnvs <- read_ascat_cnvs(path) |>
+    mutate(sample_id = sample_id, .before = "chrom")
+  if (!is.null(sample_statistics) && is_single_file(sample_statistics)) {
+    stats <- read_ascat_samplestatistics(sample_statistics) |>
+      mutate(sample_id = sample_id, .before = "normal_contamination")
+  } else {
+    stats <- empty_ascat_samplestatistics()
+  }
+  lst(cnvs, sample_statistics = stats)
+}
 
+
+
+read_ascat_files_from_dataframe <- function(path) {
+  cnvs <- path |>
+    select("sample_id", "csv") |>
+    deframe() |>
+    map(read_ascat_cnvs) |>
+    bind_rows(.id = "sample_id")
+  if (is.null(path[["sample_statistics"]])) {
+    stats <- empty_ascat_samplestatistics()
+  } else {
+    stats <- path |>
+      select("sample_id", "sample_statistics") |>
+      deframe() |>
+      keep(\(x) !is.na(x)) |>
+      map(read_ascat_samplestatistics) |>
+      bind_rows(.id = "sample_id")
+  }
+  lst(cnvs, sample_statistics = stats)
+}
+
+
+read_ascat_files_from_dir <- function(path, sample_id_pattern) {
+  csv_files <- get_files(path, ".csv", sample_id_pattern)
+  cnvs <- csv_files |>
+    map(read_ascat_cnvs) |>
+    bind_rows(.id = "sample_id")
+
+  stat_files <- get_files(path, "samplestatistics", sample_id_pattern)
+  stats <- stat_files |>
+    map(read_ascat_samplestatistics) |>
+    bind_rows(.id = "sample_id")
+  lst(cnvs, sample_statistics = stats)
+}
+
+
+## --------------------------- Base functions ----------------------------------
 
 read_ascat_cnvs <- function(path) {
   csv_cols <- c("i", "chrom", "start", "end", "normal_cn_total", "normal_cn_minor", "total_cn", "minor_cn")
