@@ -93,7 +93,7 @@ read_mutect_vcf <- function(file,
     snvs <- extract_VEP_fields(snvs)
   }
 
-  class(snvs) <- c("Mutect_tbl", class(snvs))
+  class(snvs) <- c("cevo_Mutect", class(snvs))
 
   snvs
 }

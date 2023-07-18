@@ -48,6 +48,7 @@ test_that("read_strelka_somatic_snvs() works correctly", {
   exp_chrs <- str_c("chr", c(1, 2, 3, 4, 5, 6, 7, "X", "Y"))
   exp_colnames <- c("sample_id", "chrom", "pos", "ref", "alt", "ref_reads", "alt_reads", "VAF", "DP")
 
+  expect_s3_class(res, "cevo_Strelka")
   expect_s3_class(res, "tbl")
   expect_named(res, exp_colnames)
   expect_equal(res$chrom, exp_chrs)

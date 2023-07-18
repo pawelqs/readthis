@@ -6,7 +6,7 @@ test_that("read_mutect_snvs() works with single file", {
   exp_chrs <- str_c("chr", c(1, 1, 2, 2, "X", "X", "Y", "Y"))
   exp_colnames <- c("sample_id", "chrom", "pos", "ref", "alt", "FILTER", "ref_reads", "alt_reads", "VAF", "AF", "DP", "CSQ")
 
-  expect_s3_class(res, "Mutect_tbl")
+  expect_s3_class(res, "cevo_Mutect")
   expect_named(res, exp_colnames)
   expect_equal(res$chrom, exp_chrs)
   expect_equal(nrow(res), 8)
@@ -23,7 +23,7 @@ test_that("read_mutect_snvs() works with directory", {
     "patient_id", "sample_id", "chrom", "pos", "ref", "alt", "FILTER",
     "ref_reads", "alt_reads", "VAF", "AF", "DP", "CSQ")
 
-  expect_s3_class(res, "Mutect_tbl")
+  expect_s3_class(res, "cevo_Mutect")
   expect_named(res, exp_colnames)
   expect_equal(res$chrom, exp_chrs)
   expect_equal(nrow(res), 16)
@@ -42,7 +42,7 @@ test_that("read_mutect_snvs() works with list of files", {
     "patient_id", "sample_id", "chrom", "pos", "ref", "alt", "FILTER",
     "ref_reads", "alt_reads", "VAF", "AF", "DP", "CSQ")
 
-  expect_s3_class(res, "Mutect_tbl")
+  expect_s3_class(res, "cevo_Mutect")
   expect_named(res, exp_colnames)
   expect_equal(res$chrom, exp_chrs)
   expect_equal(nrow(res), 16)

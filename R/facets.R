@@ -55,7 +55,7 @@ read_facets_cnvs <- function(path,
 read_facets_csv <- function(file, chrom_convention = "UCSC") {
   cnvs <- read_csv(file, col_types = "cddddddddiidiidd") |>
     prepare_FACETS_columns()
-  class(cnvs) <- c("FACETS_tbl", class(cnvs))
+  class(cnvs) <- c("cevo_FACETS", class(cnvs))
   cnvs
 }
 

@@ -44,6 +44,7 @@ read_strelka_somatic_snvs <- function(file,
     ) |>
     use_chrom_naming_convention(chrom_convention)
 
+  class(snvs) <- c("cevo_Strelka", class(snvs))
   snvs
 }
 
