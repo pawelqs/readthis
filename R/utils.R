@@ -10,6 +10,16 @@ msg <- function(...,
 }
 
 
+
+get_files <- function(path, pattern, sample_id_pattern) {
+  all_files <- list.files(path, full.names = TRUE)
+  files <- grep(pattern, all_files, value = TRUE)
+  names(files) <- str_extract(files, pattern = sample_id_pattern)
+  files
+}
+
+
+
 use_chrom_naming_convention <- function(tbl, chrom_convention) {
   if (chrom_convention == "UCSC") {
     use_UCSC_chrom_names(tbl)

@@ -63,28 +63,24 @@ read_ascat_files <- function(path,
         bind_rows(.id = "sample_id")
     }
   } else if (is_single_dir(path)) {
-    files <- list.files(path, full.names = TRUE)
-
-    csv_files <- grep(".csv", files, value = TRUE)
-    names(csv_files) <- str_extract(csv_files, pattern = sample_id_pattern)
+    csv_files <- get_files(path, ".csv", sample_id_pattern)
     cnvs <- csv_files |>
       map(read_ascat_cnvs) |>
       bind_rows(.id = "sample_id")
 
-    stat_files <- grep("samplestatistics", files, value = TRUE)
-    names(stat_files) <- str_extract(stat_files, pattern = sample_id_pattern)
+    stat_files <- get_files(path, "samplestatistics", sample_id_pattern)
     stats <- stat_files |>
       map(read_ascat_samplestatistics) |>
       bind_rows(.id = "sample_id")
   }
 
   ascat <- list(
-    cnvs = cnvs |>
-      use_chrom_naming_convention(chrom_convention),
+    cnvs = use_chrom_naming_convention(cnvs, chrom_convention),
     sample_statistics = stats
   )
   structure(ascat, class = c("cevo_ASCAT"))
 }
+
 
 
 ## ----------------------------- Functions ------------------------------------
