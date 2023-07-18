@@ -23,14 +23,6 @@
 #'   when path is a directory
 #' @param chrom_convention UCSC/NCBI/keep
 #'
-#' @name ascat
-NULL
-
-
-
-#' @rdname ascat
-#' @details
-#' read_ascat_csv() ...
 #' @export
 read_ascat_files <- function(path,
                              sample_statistics = NULL,
