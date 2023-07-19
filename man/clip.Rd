@@ -30,3 +30,8 @@ at MD Anderson Cancer Center in Houston.
 \item \code{read_clip_best_lambda()}: Read CliP results for best lambda only
 
 }}
+\examples{
+dir <- system.file("extdata", "CliP", package = "readthis")
+read_clip_best_lambda(dir)
+
+}
