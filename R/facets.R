@@ -10,8 +10,21 @@
 #'   2) vector of file paths, element names will be used as sample IDs
 #'   3) directory containing multiple FACETS .csv files, sample IDs will be
 #'      guessed from the file names
-#' @param sample_id Sample ID, used with path is a sigle file
+#' @param sample_id Sample ID, used with path is a single file
 #' @param chrom_convention UCSC/NCBI/keep
+#'
+#' @examples
+#' library(readthis)
+#'
+#' file1 <- system.file("extdata", "FACETS", "S1.csv", package = "readthis")
+#' read_facets_cnvs(file1)
+#'
+#' file2 <- system.file("extdata", "FACETS", "S2.csv", package = "readthis")
+#' files <- c(S1 = file1, S2 = file2)
+#' read_facets_cnvs(files)
+#'
+#' dir <- system.file("extdata", "FACETS", package = "readthis")
+#' read_facets_cnvs(dir)
 #'
 #' @name facets
 NULL
