@@ -6,24 +6,35 @@
 \title{Read Strelka variants}
 \usage{
 read_strelka_somatic_snvs(
-  file,
-  sample_id = NULL,
-  overwrite_sample_id = NULL,
+  path,
+  sample_ids = "drop_first",
   PASS_only = TRUE,
+  patient_id_pattern = "(?<=\\\\/)[:alnum:]*(?=\\\\.)",
   chrom_convention = "UCSC",
   verbose = TRUE
 )
 }
 \arguments{
-\item{file}{VCF file to read}
+\item{path}{Can be either:
+\enumerate{
+\item path to a single file
+\item vector of file paths, element names will be used as patient IDs
+\item directory containing multiple Mutect .vcf files, patient IDs will be
+guessed from the file names (should follow convention: <patient_ID>.XXX.XXX.vcf)
+}}
 
-\item{sample_id}{ID(s) of the tumor sample to use. The last ID will be used
-if none provided}
-
-\item{overwrite_sample_id}{This argument can be specified to overwrite the
-sample_id present in the VCF file}
+\item{sample_ids}{Either:
+\enumerate{
+\item "drop_first"
+\item "all"
+\item ID(s) of the selected tumor
+samples. Default: "drop_first"
+}}
 
 \item{PASS_only}{Keep FILTER == PASS variants only?}
+
+\item{patient_id_pattern}{If path is a dir only: pattern for str_extract()
+that should be used to extract the patient_id from the filenames}
 
 \item{chrom_convention}{UCSC/NCBI/keep}
 
@@ -34,12 +45,15 @@ Reads the variant calls from Strelka2 Small Variant Caller
 }
 \examples{
 library(readthis)
-path <- system.file("extdata", "Strelka", "S1.somatic.snvs.vcf.gz", package = "readthis")
-read_strelka_somatic_snvs(
-  path,
-  sample_id = "TUMOR",
-  overwrite_sample_id = "S1",
-  verbose = FALSE
-)
+
+file1 <- system.file("extdata", "Strelka", "S1.somatic.snvs.vcf.gz", package = "readthis")
+read_strelka_somatic_snvs(file1)
+
+file2 <- system.file("extdata", "Strelka", "S2.somatic.snvs.vcf.gz", package = "readthis")
+files <- c(S1 = file1, S2 = file2)
+read_strelka_somatic_snvs(files, verbose = FALSE)
+
+dir <- system.file("extdata", "Strelka", package = "readthis")
+read_strelka_somatic_snvs(dir)
 
 }
