@@ -23,6 +23,26 @@
 #'   gene_symbol and entrez_id (epxerimental, not tested)
 #' @param verbose Verbose?
 #'
+#' @examples
+#' library(readthis)
+#'
+#' file1 <- system.file(
+#'   "extdata", "Mutect", "S1.Mutect2.filter.pass.phased.annot.vcf",
+#'   package = "readthis"
+#' )
+#' file2 <- system.file(
+#'   "extdata", "Mutect", "S2.Mutect2.filter.pass.phased.annot.vcf",
+#'   package = "readthis"
+#' )
+#'
+#' read_mutect_snvs(file1)
+#'
+#' files <- c(S1 = file1, S2 = file2)
+#' read_mutect_snvs(files, verbose = FALSE)
+#'
+#' mutect_dir <- system.file("extdata", "Mutect", package = "readthis")
+#' read_mutect_snvs(mutect_dir)
+#'
 #' @name mutect
 NULL
 
