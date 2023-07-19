@@ -1,3 +1,33 @@
+test_that("read_vcf() with PASS_only = FALSE works correctly", {
+  file <- test_path("Strelka", "S1.somatic.snvs.vcf")
+  res <- read_vcf(file, PASS_only = FALSE)
+  expect_s3_class(res$dat, "tbl")
+  expect_s3_class(res$meta, "tbl")
+  expect_equal(res$dat$POS, rep(1:12, each = 2))
+})
+
+
+
+test_that("read_vcf() with PASS_only = TRUE works correctly", {
+  file <- test_path("Strelka", "S1.somatic.snvs.vcf")
+  res <- read_vcf(file, PASS_only = TRUE)
+  expect_s3_class(res$dat, "tbl")
+  expect_s3_class(res$meta, "tbl")
+  expect_equal(res$dat$POS, rep(c(1, 3, 5, 7, 8, 9, 10, 11, 12), each = 2))
+})
+
+
+
+test_that("read_vcf() works with gzipped VCFs", {
+  file <- test_path("Strelka", "S1.somatic.snvs.vcf.gz")
+  res <- read_vcf(file, PASS_only = TRUE)
+  expect_s3_class(res$dat, "tbl")
+  expect_s3_class(res$meta, "tbl")
+  expect_equal(res$dat$POS, rep(c(1, 3, 5, 7, 8, 9, 10, 11, 12), each = 2))
+})
+
+
+
 test_that("get_files() works", {
   path <- test_path("ASCAT")
 

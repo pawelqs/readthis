@@ -67,21 +67,6 @@ read_strelka_somatic_snvs <- function(file,
 }
 
 
-
-## ------------------------------ Functions ------------------------------------
-
-
-# Read VCF into a tidy tibble format
-read_vcf <- function(file, PASS_only = TRUE, ..., verbose = FALSE) {
-  vcf <- vcfR::read.vcfR(file, verbose = verbose)
-  if (PASS_only) {
-    vcf <- vcf[vcfR::getFILTER(vcf) %in% c("PASS", NA)]
-  }
-  vcfR::vcfR2tidy(vcf, single_frame = TRUE, ..., verbose = verbose)
-}
-
-
-
 # Based on Strelka README:
 # https://github.com/Illumina/strelka/blob/v2.9.x/docs/userGuide/README.md#somatic
 calc_strelka_somatic_VAF <- function(tbl) {

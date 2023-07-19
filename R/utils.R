@@ -1,3 +1,16 @@
+
+
+# Read VCF into a tidy tibble format
+read_vcf <- function(file, PASS_only = TRUE, ..., verbose = FALSE) {
+  vcf <- vcfR::read.vcfR(file, verbose = verbose)
+  if (PASS_only) {
+    vcf <- vcf[vcfR::getFILTER(vcf) %in% c("PASS", NA)]
+  }
+  vcfR::vcfR2tidy(vcf, single_frame = TRUE, ..., verbose = verbose)
+}
+
+
+
 msg <- function(...,
                 prefix = "readthis>",
                 collapse = "",
