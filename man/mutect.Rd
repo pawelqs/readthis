@@ -28,9 +28,10 @@ guessed from the file names (should follow convention: <patient_ID>.XXX.XXX.vcf)
 \enumerate{
 \item "drop_first"
 \item "all"
-\item ID(s) of the selected tumor
-samples. Default: "drop_first"
-}}
+\item ID(s) of the selected tumor samples.
+}
+
+Default: "drop_first"}
 
 \item{PASS_only}{Keep FILTER == PASS variants only?}
 

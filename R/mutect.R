@@ -12,8 +12,9 @@
 #' @param sample_ids Either:
 #'   1) "drop_first"
 #'   2) "all"
-#'   3) ID(s) of the selected tumor
-#'      samples. Default: "drop_first"
+#'   3) ID(s) of the selected tumor samples.
+#'
+#'   Default: "drop_first"
 #' @param PASS_only Keep FILTER == PASS variants only?
 #' @param patient_id_pattern If path is a dir only: pattern for str_extract()
 #'   that should be used to extract the patient_id from the filenames
