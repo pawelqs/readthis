@@ -1,5 +1,5 @@
 test_that("read_vcf() with PASS_only = FALSE works correctly", {
-  file <- test_path("Strelka", "S1.somatic.snvs.vcf")
+  file <- test_path("S1.vcf")
   res <- read_vcf(file, PASS_only = FALSE)
   expect_s3_class(res$dat, "tbl")
   expect_s3_class(res$meta, "tbl")
@@ -9,7 +9,7 @@ test_that("read_vcf() with PASS_only = FALSE works correctly", {
 
 
 test_that("read_vcf() with PASS_only = TRUE works correctly", {
-  file <- test_path("Strelka", "S1.somatic.snvs.vcf")
+  file <- test_path("S1.vcf")
   res <- read_vcf(file, PASS_only = TRUE)
   expect_s3_class(res$dat, "tbl")
   expect_s3_class(res$meta, "tbl")
