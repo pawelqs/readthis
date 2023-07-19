@@ -7,9 +7,21 @@
 #' @param file VCF file to read
 #' @param sample_id ID(s) of the tumor sample to use. The last ID will be used
 #'   if none provided
+#' @param overwrite_sample_id This argument can be specified to overwrite the
+#'   sample_id present in the VCF file
 #' @param PASS_only Keep FILTER == PASS variants only?
 #' @param chrom_convention UCSC/NCBI/keep
 #' @param verbose Verbose?
+#'
+#' @examples
+#' library(readthis)
+#' path <- system.file("extdata", "Strelka", "S1.somatic.snvs.vcf.gz", package = "readthis")
+#' read_strelka_somatic_snvs(
+#'   path,
+#'   sample_id = "TUMOR",
+#'   overwrite_sample_id = "S1",
+#'   verbose = FALSE
+#' )
 #'
 #' @name strelka
 NULL
@@ -20,6 +32,7 @@ NULL
 #' @export
 read_strelka_somatic_snvs <- function(file,
                                       sample_id = NULL,
+                                      overwrite_sample_id = NULL,
                                       PASS_only = TRUE,
                                       chrom_convention = "UCSC",
                                       verbose = TRUE) {
@@ -43,6 +56,11 @@ read_strelka_somatic_snvs <- function(file,
       VAF = "VAF", DP = "DP"
     ) |>
     use_chrom_naming_convention(chrom_convention)
+
+  if (!is.null(overwrite_sample_id)) {
+    snvs$sample_id <- overwrite_sample_id
+    msg("sample_id set to: ", sample_id, verbose = verbose)
+  }
 
   class(snvs) <- c("cevo_Strelka", class(snvs))
   snvs

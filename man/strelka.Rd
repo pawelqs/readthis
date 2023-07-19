@@ -8,6 +8,7 @@
 read_strelka_somatic_snvs(
   file,
   sample_id = NULL,
+  overwrite_sample_id = NULL,
   PASS_only = TRUE,
   chrom_convention = "UCSC",
   verbose = TRUE
@@ -19,6 +20,9 @@ read_strelka_somatic_snvs(
 \item{sample_id}{ID(s) of the tumor sample to use. The last ID will be used
 if none provided}
 
+\item{overwrite_sample_id}{This argument can be specified to overwrite the
+sample_id present in the VCF file}
+
 \item{PASS_only}{Keep FILTER == PASS variants only?}
 
 \item{chrom_convention}{UCSC/NCBI/keep}
@@ -27,4 +31,15 @@ if none provided}
 }
 \description{
 Reads the variant calls from Strelka2 Small Variant Caller
+}
+\examples{
+library(readthis)
+path <- system.file("extdata", "Strelka", "S1.somatic.snvs.vcf.gz", package = "readthis")
+read_strelka_somatic_snvs(
+  path,
+  sample_id = "TUMOR",
+  overwrite_sample_id = "S1",
+  verbose = FALSE
+)
+
 }
