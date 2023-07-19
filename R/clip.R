@@ -9,7 +9,7 @@
 #' @param dir directory in which to seek for the CliP results
 #'
 #' @examples
-#' dir <- system.file("CliP", package = "readthis")
+#' dir <- system.file("extdata", "CliP", package = "readthis")
 #' read_clip_best_lambda(dir)
 #'
 #' @name clip

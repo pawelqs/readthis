@@ -9,6 +9,7 @@ read_mutect_snvs(
   path,
   sample_ids = "drop_first",
   PASS_only = TRUE,
+  patient_id_pattern = "(?<=\\\\/)[:alnum:]*(?=\\\\.)",
   chrom_convention = "UCSC",
   extract_VEP_fields = FALSE,
   verbose = TRUE
@@ -27,11 +28,15 @@ guessed from the file names (should follow convention: <patient_ID>.XXX.XXX.vcf)
 \enumerate{
 \item "drop_first"
 \item "all"
-\item ID(s) of the selected tumor
-samples. Default: "drop_first"
-}}
+\item ID(s) of the selected tumor samples.
+}
+
+Default: "drop_first"}
 
 \item{PASS_only}{Keep FILTER == PASS variants only?}
+
+\item{patient_id_pattern}{If path is a dir only: pattern for str_extract()
+that should be used to extract the patient_id from the filenames}
 
 \item{chrom_convention}{UCSC/NCBI/keep}
 
@@ -43,4 +48,25 @@ gene_symbol and entrez_id (epxerimental, not tested)}
 }
 \description{
 Reads the variant calls from Mutect2 somatic variants caller
+}
+\examples{
+library(readthis)
+
+file1 <- system.file(
+  "extdata", "Mutect", "S1.Mutect2.filter.pass.phased.annot.vcf",
+  package = "readthis"
+)
+file2 <- system.file(
+  "extdata", "Mutect", "S2.Mutect2.filter.pass.phased.annot.vcf",
+  package = "readthis"
+)
+
+read_mutect_snvs(file1)
+
+files <- c(S1 = file1, S2 = file2)
+read_mutect_snvs(files, verbose = FALSE)
+
+mutect_dir <- system.file("extdata", "Mutect", package = "readthis")
+read_mutect_snvs(mutect_dir)
+
 }

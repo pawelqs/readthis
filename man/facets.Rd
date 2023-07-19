@@ -16,7 +16,7 @@ read_facets_cnvs(path, sample_id = path, chrom_convention = "UCSC")
 guessed from the file names
 }}
 
-\item{sample_id}{Sample ID, used with path is a sigle file}
+\item{sample_id}{Sample ID, used with path is a single file}
 
 \item{chrom_convention}{UCSC/NCBI/keep}
 }
@@ -27,4 +27,18 @@ CNV caller
 \details{
 read_facets_csv() reads a single csv file. If sample_id is not provided,
 file path is used
+}
+\examples{
+library(readthis)
+
+file1 <- system.file("extdata", "FACETS", "S1.csv", package = "readthis")
+read_facets_cnvs(file1)
+
+file2 <- system.file("extdata", "FACETS", "S2.csv", package = "readthis")
+files <- c(S1 = file1, S2 = file2)
+read_facets_cnvs(files)
+
+dir <- system.file("extdata", "FACETS", package = "readthis")
+read_facets_cnvs(dir)
+
 }

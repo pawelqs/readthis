@@ -1,3 +1,16 @@
+
+
+# Read VCF into a tidy tibble format
+read_vcf <- function(file, PASS_only = TRUE, ..., verbose = FALSE) {
+  vcf <- vcfR::read.vcfR(file, verbose = verbose)
+  if (PASS_only) {
+    vcf <- vcf[vcfR::getFILTER(vcf) %in% c("PASS", NA)]
+  }
+  vcfR::vcfR2tidy(vcf, single_frame = TRUE, ..., verbose = verbose)
+}
+
+
+
 msg <- function(...,
                 prefix = "readthis>",
                 collapse = "",
@@ -8,6 +21,16 @@ msg <- function(...,
     cli::cat_line(msg, col = col)
   }
 }
+
+
+
+get_files <- function(path, pattern, sample_id_pattern) {
+  all_files <- list.files(path, full.names = TRUE)
+  files <- grep(pattern, all_files, value = TRUE)
+  names(files) <- str_extract(files, pattern = sample_id_pattern)
+  files
+}
+
 
 
 use_chrom_naming_convention <- function(tbl, chrom_convention) {

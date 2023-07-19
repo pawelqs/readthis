@@ -12,14 +12,37 @@
 #' @param sample_ids Either:
 #'   1) "drop_first"
 #'   2) "all"
-#'   3) ID(s) of the selected tumor
-#'      samples. Default: "drop_first"
+#'   3) ID(s) of the selected tumor samples.
+#'
+#'   Default: "drop_first"
 #' @param PASS_only Keep FILTER == PASS variants only?
+#' @param patient_id_pattern If path is a dir only: pattern for str_extract()
+#'   that should be used to extract the patient_id from the filenames
 #' @param chrom_convention UCSC/NCBI/keep
 #' @param extract_VEP_fields If VCF file contains VEP annotations, following
 #'   fields will be extracted: Variant_Classification, impact,
 #'   gene_symbol and entrez_id (epxerimental, not tested)
 #' @param verbose Verbose?
+#'
+#' @examples
+#' library(readthis)
+#'
+#' file1 <- system.file(
+#'   "extdata", "Mutect", "S1.Mutect2.filter.pass.phased.annot.vcf",
+#'   package = "readthis"
+#' )
+#' file2 <- system.file(
+#'   "extdata", "Mutect", "S2.Mutect2.filter.pass.phased.annot.vcf",
+#'   package = "readthis"
+#' )
+#'
+#' read_mutect_snvs(file1)
+#'
+#' files <- c(S1 = file1, S2 = file2)
+#' read_mutect_snvs(files, verbose = FALSE)
+#'
+#' mutect_dir <- system.file("extdata", "Mutect", package = "readthis")
+#' read_mutect_snvs(mutect_dir)
 #'
 #' @name mutect
 NULL
@@ -31,6 +54,7 @@ NULL
 read_mutect_snvs <- function(path,
                              sample_ids = "drop_first",
                              PASS_only = TRUE,
+                             patient_id_pattern = "(?<=\\/)[:alnum:]*(?=\\.)",
                              chrom_convention = "UCSC",
                              extract_VEP_fields = FALSE,
                              verbose = TRUE) {
@@ -42,10 +66,7 @@ read_mutect_snvs <- function(path,
   } else if (is_single_dir(path)) {
     files <- list.files(path, full.names = TRUE)
     patient_ids <- files |>
-      str_split(pattern = "/") |>
-      map_chr(last) |>
-      str_split(pattern = "\\.") |>
-      map_chr(first)
+      str_extract(pattern = patient_id_pattern)
     names(files) <- patient_ids
     snvs <- files |>
       map(read_mutect_vcf, sample_ids, PASS_only, extract_VEP_fields, verbose) |>
@@ -93,7 +114,7 @@ read_mutect_vcf <- function(file,
     snvs <- extract_VEP_fields(snvs)
   }
 
-  class(snvs) <- c("Mutect_tbl", class(snvs))
+  class(snvs) <- c("cevo_Mutect", class(snvs))
 
   snvs
 }

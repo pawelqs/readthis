@@ -28,6 +28,7 @@ devtools::install_github("pawelqs/readthis")
 - [Strelka2](https://github.com/Illumina/strelka) (somatic SNVs only)
 - [Mutect2](https://github.com/Illumina/strelka) SNVs
 - [FACETS](https://github.com/mskcc/facets) CNVs
+- [ASCAT](https://github.com/VanLoo-lab/ascat) CNVs
 
 **Other tools:**
 

@@ -1,3 +1,6 @@
+# readthis 0.5.0
+* Reading ASCAT SNVs
+
 # readthis 0.4.0
 * Reading Mutect2 SNVs
 

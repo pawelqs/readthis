@@ -31,7 +31,7 @@ at MD Anderson Cancer Center in Houston.
 
 }}
 \examples{
-dir <- system.file("CliP", package = "readthis")
+dir <- system.file("extdata", "CliP", package = "readthis")
 read_clip_best_lambda(dir)
 
 }
