@@ -4,3 +4,10 @@ template:
   bootswatch: flatly
   bslib:
     pkgdown-nav-height: 100px
+
+home:
+  links:
+  - text: Source Code
+    href: https://github.com/pawelqs/readthis
+  - text: Bug Reports
+    href: https://github.com/pawelqs/readthis/issues
