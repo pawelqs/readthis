@@ -1,0 +1,55 @@
+---
+title: "Get Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+*Vignette in development*
+
+In this vignette, we will walk you through the basic usage using the readthis R package for fast reading of output files from various programs, including Mutect2, Strelka, ASCAT, and FACETS. We will use the Strelka VCF files that are installed with the readthis package.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(readthis)
+
+strelka_vcf <- system.file("extdata", "Strelka", "S1.somatic.snvs.vcf.gz", package = "readthis")
+```
+
+
+VCF files with Strelka somatic SNVs can be read with `read_strelka_somatic_snvs()` function. The main argument taken by function is the path, which can be either a path to a single VCF file, vector of paths to many files, or a single path to a directory containing many files.
+
+## Reading a single file
+
+In the simplies case `path` points a single VCF file:
+
+```{r setup}
+read_strelka_somatic_snvs(strelka_vcf, verbose = FALSE)
+```
+
+## Reading list of files
+
+`path` can be a vector of paths to many VCF files
+
+```{r}
+strelka_vcf2 <- system.file("extdata", "Strelka", "S2.somatic.snvs.vcf.gz", package = "readthis")
+files <- c(S1 = strelka_vcf, S2 = strelka_vcf2)
+read_strelka_somatic_snvs(files, verbose = FALSE)
+```
+
+## Reading all files from the directory
+
+```{r}
+strelka_dir <- system.file("extdata", "Strelka", package = "readthis")
+read_strelka_somatic_snvs(strelka_dir, verbose = FALSE)
+```
+
+`readthis` contains methods for bulk reading of output files from some other programs. To see the list of  functions implemented in the package go to [readthis/Reference](https://pawelqs.github.io/cevomod/reference/index.html).
