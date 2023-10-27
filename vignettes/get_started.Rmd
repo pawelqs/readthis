@@ -52,4 +52,4 @@ strelka_dir <- system.file("extdata", "Strelka", package = "readthis")
 read_strelka_somatic_snvs(strelka_dir, verbose = FALSE)
 ```
 
-`readthis` contains methods for bulk reading of output files from some other programs. To see the list of  functions implemented in the package go to [readthis/Reference](https://pawelqs.github.io/readthis/reference/index.html).
+`readthis` contains methods for bulk reading of output files from some other programs. To see the list of  functions implemented in the package go to [Reference](https://pawelqs.github.io/readthis/reference/index.html) page.
