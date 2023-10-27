@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-*Vignette in development*
+**Vignette in development**
 
 In this vignette, we will walk you through the basic usage using the readthis R package for fast reading of output files from various programs, including Mutect2, Strelka, ASCAT, and FACETS. We will use the Strelka VCF files that are installed with the readthis package.
 
@@ -29,9 +29,9 @@ VCF files with Strelka somatic SNVs can be read with `read_strelka_somatic_snvs(
 
 ## Reading a single file
 
-In the simplies case `path` points a single VCF file:
+In the simpliest case `path` points a single VCF file:
 
-```{r setup}
+```{r}
 read_strelka_somatic_snvs(strelka_vcf, verbose = FALSE)
 ```
 
@@ -52,4 +52,4 @@ strelka_dir <- system.file("extdata", "Strelka", package = "readthis")
 read_strelka_somatic_snvs(strelka_dir, verbose = FALSE)
 ```
 
-`readthis` contains methods for bulk reading of output files from some other programs. To see the list of  functions implemented in the package go to [readthis/Reference](https://pawelqs.github.io/cevomod/reference/index.html).
+`readthis` contains methods for bulk reading of output files from some other programs. To see the list of  functions implemented in the package go to [readthis/Reference](https://pawelqs.github.io/readthis/reference/index.html).
