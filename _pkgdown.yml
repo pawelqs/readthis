@@ -11,10 +11,3 @@ home:
     href: https://github.com/pawelqs/readthis
   - text: Bug Reports
     href: https://github.com/pawelqs/readthis/issues
-
-
-articles:
-- title: Tutorials
-  navbar: ~
-  contents:
-  - get_started
