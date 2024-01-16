@@ -1,13 +1,13 @@
 ## ------------------------------- Export --------------------------------------
 
-#' Read ASCAT CNV calls
+#' Read ASCAT CNA calls
 #'
-#' Reads the CNV variant calls and sample statistics from
-#' [ASCAT](https://github.com/VanLoo-lab/ascat) CNV caller
+#' Reads the CNA variant calls and sample statistics from
+#' [ASCAT](https://github.com/VanLoo-lab/ascat) CNA caller
 #'
 #' @param path Can be either:
-#'   1) path to a single csv file with ASCAT CNV calls
-#'   2) tibble with sample_id, cnvs, and (optionally) sample_statistics columns
+#'   1) path to a single csv file with ASCAT CNA calls
+#'   2) tibble with sample_id, cnas, and (optionally) sample_statistics columns
 #'      containing sample_ids and paths.
 #'   3) directory containing multiple ASCAT files with "*.csv" and
 #'      "*.samplestatistics.*" names.
@@ -62,7 +62,7 @@ read_ascat_files <- function(path,
     ascat <- read_ascat_files_from_dir(path, sample_id_pattern)
   }
 
-  ascat$cnvs <- use_chrom_naming_convention(ascat$cnvs, chrom_convention)
+  ascat$cnas <- use_chrom_naming_convention(ascat$cnas, chrom_convention)
   structure(ascat, class = c("cevo_ASCAT"))
 }
 
@@ -70,7 +70,7 @@ read_ascat_files <- function(path,
 ## ----------------------- Higher level functions -----------------------------
 
 read_ascat_files_single <- function(path, sample_statistics, sample_id) {
-  cnvs <- read_ascat_cnvs(path) |>
+  cnas <- read_ascat_cnas(path) |>
     mutate(sample_id = sample_id, .before = "chrom")
   if (!is.null(sample_statistics) && is_single_file(sample_statistics)) {
     stats <- read_ascat_samplestatistics(sample_statistics) |>
@@ -78,16 +78,16 @@ read_ascat_files_single <- function(path, sample_statistics, sample_id) {
   } else {
     stats <- empty_ascat_samplestatistics()
   }
-  lst(cnvs, sample_statistics = stats)
+  lst(cnas, sample_statistics = stats)
 }
 
 
 
 read_ascat_files_from_dataframe <- function(path) {
-  cnvs <- path |>
+  cnas <- path |>
     select("sample_id", "csv") |>
     deframe() |>
-    map(read_ascat_cnvs) |>
+    map(read_ascat_cnas) |>
     bind_rows(.id = "sample_id")
   if (is.null(path[["sample_statistics"]])) {
     stats <- empty_ascat_samplestatistics()
@@ -99,29 +99,29 @@ read_ascat_files_from_dataframe <- function(path) {
       map(read_ascat_samplestatistics) |>
       bind_rows(.id = "sample_id")
   }
-  lst(cnvs, sample_statistics = stats)
+  lst(cnas, sample_statistics = stats)
 }
 
 
 read_ascat_files_from_dir <- function(path, sample_id_pattern) {
   csv_files <- get_files(path, ".csv", sample_id_pattern)
-  cnvs <- csv_files |>
-    map(read_ascat_cnvs) |>
+  cnas <- csv_files |>
+    map(read_ascat_cnas) |>
     bind_rows(.id = "sample_id")
 
   stat_files <- get_files(path, "samplestatistics", sample_id_pattern)
   stats <- stat_files |>
     map(read_ascat_samplestatistics) |>
     bind_rows(.id = "sample_id")
-  lst(cnvs, sample_statistics = stats)
+  lst(cnas, sample_statistics = stats)
 }
 
 
 ## --------------------------- Base functions ----------------------------------
 
-read_ascat_cnvs <- function(path) {
+read_ascat_cnas <- function(path) {
   csv_cols <- c("i", "chrom", "start", "end", "normal_cn_total", "normal_cn_minor", "total_cn", "minor_cn")
-  cnvs <- read_csv(path, col_names = csv_cols, col_types = "dcdddddd") |>
+  cnas <- read_csv(path, col_names = csv_cols, col_types = "dcdddddd") |>
     mutate(major_cn = .data$total_cn - .data$minor_cn) |>
     select(
       "chrom", "start", "end",
@@ -129,7 +129,7 @@ read_ascat_cnvs <- function(path) {
       normal_cn = "normal_cn_total"
     )
 
-  cnvs
+  cnas
 }
 
 

@@ -2,10 +2,10 @@
 % Please edit documentation in R/facets.R
 \name{facets}
 \alias{facets}
-\alias{read_facets_cnvs}
-\title{Read FACETS CNV calls}
+\alias{read_facets_cnas}
+\title{Read FACETS CNA calls}
 \usage{
-read_facets_cnvs(path, sample_id = path, chrom_convention = "UCSC")
+read_facets_cnas(path, sample_id = path, chrom_convention = "UCSC")
 }
 \arguments{
 \item{path}{Can be either:
@@ -22,7 +22,7 @@ guessed from the file names
 }
 \description{
 Reads the variant calls from \href{https://github.com/mskcc/facets/tree/master}{FACETS}
-CNV caller
+CNA caller
 }
 \details{
 read_facets_csv() reads a single csv file. If sample_id is not provided,
@@ -32,13 +32,13 @@ file path is used
 library(readthis)
 
 file1 <- system.file("extdata", "FACETS", "S1.csv", package = "readthis")
-read_facets_cnvs(file1)
+read_facets_cnas(file1)
 
 file2 <- system.file("extdata", "FACETS", "S2.csv", package = "readthis")
 files <- c(S1 = file1, S2 = file2)
-read_facets_cnvs(files)
+read_facets_cnas(files)
 
 dir <- system.file("extdata", "FACETS", package = "readthis")
-read_facets_cnvs(dir)
+read_facets_cnas(dir)
 
 }

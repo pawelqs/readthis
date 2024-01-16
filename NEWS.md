@@ -1,3 +1,6 @@
+# readthis 0.6.0
+* Naming convention changed from CNVs to CNAs
+
 # readthis 0.5.0
 * Reading ASCAT SNVs
 

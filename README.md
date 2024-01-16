@@ -26,8 +26,8 @@ devtools::install_github("pawelqs/readthis")
 
 - [Strelka2](https://github.com/Illumina/strelka) (somatic SNVs only): `read_strelka_somatic_snvs()`
 - [Mutect2](https://github.com/Illumina/strelka) SNVs: `read_mutect_snvs()`
-- [FACETS](https://github.com/mskcc/facets) CNVs: `read_facets_cnvs()`
-- [ASCAT](https://github.com/VanLoo-lab/ascat) CNVs: `read_ascat_files()` (does not work with all the files)
+- [FACETS](https://github.com/mskcc/facets) CNAs: `read_facets_cnas()`
+- [ASCAT](https://github.com/VanLoo-lab/ascat) CNAs: `read_ascat_files()` (does not work with all the files)
 
 **Other tools:**
 
