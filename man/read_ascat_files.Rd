@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascat.R
 \name{read_ascat_files}
 \alias{read_ascat_files}
-\title{Read ASCAT CNV calls}
+\title{Read ASCAT CNA calls}
 \usage{
 read_ascat_files(
   path,
@@ -15,8 +15,8 @@ read_ascat_files(
 \arguments{
 \item{path}{Can be either:
 \enumerate{
-\item path to a single csv file with ASCAT CNV calls
-\item tibble with sample_id, cnvs, and (optionally) sample_statistics columns
+\item path to a single csv file with ASCAT CNA calls
+\item tibble with sample_id, cnas, and (optionally) sample_statistics columns
 containing sample_ids and paths.
 \item directory containing multiple ASCAT files with "\emph{.csv" and
 "}.samplestatistics.*" names.
@@ -38,8 +38,8 @@ when path is a directory}
 \item{chrom_convention}{UCSC/NCBI/keep}
 }
 \description{
-Reads the CNV variant calls and sample statistics from
-\href{https://github.com/VanLoo-lab/ascat}{ASCAT} CNV caller
+Reads the CNA variant calls and sample statistics from
+\href{https://github.com/VanLoo-lab/ascat}{ASCAT} CNA caller
 }
 \examples{
 library(readthis)
